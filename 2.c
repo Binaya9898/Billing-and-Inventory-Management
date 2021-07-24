@@ -604,6 +604,7 @@ void inventory(){
 {
     FILE *file;
     char y[ACS],x[12];
+    int chh;
     system("cls");
 
     printf("\nEnter New Record(Y/N)?");
@@ -629,6 +630,20 @@ void inventory(){
         printf("\nEnter New Record(Y/N)?");
 
     }
+    display();
+    sleep(3);
+    printf("\n\nPress 1 for main menu:");
+    scanf("%d",&chh);
+    if(chh==1){
+    	inventory();
+	}
+	else
+	printf("\n\n \t\t\t\t Terminating Program:");
+	sleep(4);
+	exit(1);
+   
+    return;
+    
 }
 
 
@@ -669,7 +684,7 @@ void c_code(char y[])
 	/*function for editing*/
 void edit()
 {
-    int flag=0,choice,found;
+    int flag=0,chh,choice,found;
     char x[ACS],y[ACS];
     FILE *file;
     FILE *ftt;
@@ -721,34 +736,72 @@ if(flag==1){
 else{
 	puts("Record Not Found");
 }
+sleep(1);
+   printf("\n \nPress");
+   sleep(1);
+   printf(" 1 to");
+   sleep(1);
+    printf(" edit more products:"); 
+    sleep(1);
+   printf("\n\nPress 2 for");
+   sleep(1);
+   printf(" main menu:");
+   scanf("%d",&chh);
+   if(chh==1){
+   	edit();
+   	
+   }
+   
+   else if(chh==2){
+   	inventory();
+   }
+   else
+   printf("\n\n\t\t\t\t\tIncorrect Option Entered!! Terminating the Program");
+   sleep(5);
+   exit(0);
+   
+    
+   
 }
+
+
 
 /*function to display all records*/
 void all()
 {
 	system("cls");
-    int i,j=1;
+    int i,j=1,m=4,n=8;
     FILE *file;
     
     file=fopen("record.txt","rb");
     rewind(file);
     i=1;
     fflush(file);
-     printf ("SN.   Item Name   Item Code      Rate     Quantity");
+    gotoxy(60,2);
+    printf("A V A I L A B L E   P R O D U C T S");
+    gotoxy(4,3);
+    	printf("|_______________________________________________________________________________________________________|\n");
+    	gotoxy(4,5);
+     printf ("\tSN.\t\tItem Name\t\tItem Code\t\tRate \t\tQuantity");
+     gotoxy(4,6);
+     printf("|_______________________________________________________________________________________________________|\n");
+     
     
 	
 	while (fread(&item,sizeof(item),1,file)==1)
     {
-       printf("\n%d\t %s \t\t%s \t\t %g\t\t %d",i,item.name,item.code,item.rate,item.quantity);
+    	//gotoxy(m,n);
+       printf(" \n\t%d\t\t  %-12s\t\t %-12s\t %10.2f \t %12d\n ",i,item.name,item.code,item.rate,item.quantity);
        i=i+1;
+       n=n+1;
         }
     
     getch();
     fclose(file);
     inventory();
 }
-
-/*function to display in screen*/
+/*
+function to display in screen
 void display(rec *item,int i,int j)
 {
     
@@ -758,38 +811,107 @@ void display(rec *item,int i,int j)
     printf("%14.2f",item->rate);
     printf("%11d",item->quantity);
 }
+*/
+void display(){
+	
 
+	system("cls");
+    int i,j=1,m=4,n=8;
+    FILE *file;
+    
+    file=fopen("record.txt","rb");
+    rewind(file);
+    i=1;
+    fflush(file);
+    gotoxy(60,2);
+    printf("A V A I L A B L E   P R O D U C T S");
+    gotoxy(4,3);
+    	printf("|_______________________________________________________________________________________________________|\n");
+    	gotoxy(4,5);
+     printf ("\tSN.\t\tItem Name\t\tItem Code\t\tRate \t\tQuantity");
+     gotoxy(4,6);
+     printf("|_______________________________________________________________________________________________________|\n");
+     
+    
+	
+	while (fread(&item,sizeof(item),1,file)==1)
+    {
+    	//gotoxy(m,n);
+       printf(" \n\t%d\t\t  %-12s\t\t %-12s\t %10.2f \t %12d\n ",i,item.name,item.code,item.rate,item.quantity);
+       i=i+1;
+       n=n+1;
+        }
+    
+    
+    fclose(file);
+
+}
 
 
 
 void search()
 {
-    int i,j=1;
+    int i,j=1,chh;
     char x[4]= {0};
     FILE *file;
     file=fopen("record.txt","rb");
     rewind(file);
-    i=26;
+    i=2;
     
     printf("\n\nEnter Item Code: ");
     scanf("%s",x);
+    system("cls");
+    
     fflush(file);
     while(fread(&item,sizeof(item),1,file))
     {
         if((strcmp(item.code,x)==0))
-        {
+        {/*
             display(&item,i,j);
             i++;
             j++;
-            break;
+            break;*/
+            i=1;
+            gotoxy(60,2);
+    printf("S E A R C H E D   P R O D U C T ");
+    gotoxy(4,3);
+    	printf("_______________________________________________________________________________________________________\n");
+    	gotoxy(4,5);
+     printf ("\tSN.\t\tItem Name\t\tItem Code\t\tRate \t\tQuantity");
+     gotoxy(4,6);
+     printf("_______________________________________________________________________________________________________\n");
+      printf(" \n\t%d\t\t  %-12s\t\t %-12s\t %10.2f \t %12d\n ",i,item.name,item.code,item.rate,item.quantity);
+     
         }
     }
-    if (i==26)
+    if (i==2)
     {
         system("cls");
         printf("No Item Found");
     }
-    getch();
+    sleep(1);
+   printf("\n \nPress");
+   sleep(1);
+   printf(" 1 to");
+   sleep(1);
+    printf(" search more products:"); 
+    sleep(1);
+   printf("\n\nPress 2 for");
+   sleep(1);
+   printf(" main menu:");
+   scanf("%d",&chh);
+   if(chh==1){
+   	search();
+   	
+   }
+   
+   else if(chh==2){
+   	inventory();
+   }
+   else
+   getch();
+   return;
+    
     fclose(file);
     search();
 }
@@ -797,13 +919,14 @@ void search()
 /*function to delete records*/
 void del()
 {
-	int flag=0,choice,found;
+	int flag=0,choice,found,chh;
     char x[ACS],y[ACS];
     FILE *file;
     FILE *ftt;
     int size;
     system("cls");
-    printf("EDIT RECORDS");
+    gotoxy(60,2);
+    printf("D E L E T E   R E C O R D S");
     
     file=fopen("record.txt","rb");
     ftt=fopen("temmp.txt","wb");
@@ -834,12 +957,40 @@ if(flag==1){
 	
     fclose(file);
     fclose(ftt);
-}
+    sleep(1);
+    printf("Sucessfully");
+    sleep(1);
+    printf("Deleted");
+    sleep(2);
+    display();
+    
+} 
 else{
 	puts("Record Not Found");
 }
 
-    inventory();
+    sleep(1);
+   printf("\n \nPress");
+   sleep(1);
+   printf(" 1 to");
+   sleep(1);
+    printf(" delete more products:"); 
+    sleep(1);
+   printf("\n\nPress 2 for");
+   sleep(1);
+   printf(" main menu:");
+   scanf("%d",&chh);
+   if(chh==1){
+   	del();
+   	
+   }
+   
+   else if(chh==2){
+   	inventory();
+   }
+   else
+   getch();
+   return;
 }
 
 
@@ -861,6 +1012,40 @@ int check(char x[ANS])
     fclose(file);
     return flag;
 }
+/*
+void c_item(char y[])
+{
+    int flag;
+    FILE *file;
+    file=fopen("record.txt","rb");
+    while(1)
+    {
+        system("cls");
+       
+        //printf(" ADD ARTICLES ")  ;
+        flag=1;
+        rewind(file);
+        
+        cd[i]=y;
+        while(fread(&item,sizeof(item),1,file)==1)
+        {
+            if (strcmp(y,item.code)==0)
+            {
+                flag=0;
+                
+                printf("Code Already Exists");
+                
+                printf("\n\nEnter Again");
+                getch();
+                break;
+            }
+        }
+        if (flag==1)
+            break;
+    }
+}
+*/
+
 
 
 void display_bill(){
