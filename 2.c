@@ -66,6 +66,8 @@ void header();
 void charges();
 void dischr();
 
+void display();
+
 COORD coord = { 0, 0 };
 
 void gotoxy(int x, int y)
@@ -498,8 +500,10 @@ void update_record()
 			gets(s.password);
 			printf("\n\t\tUpdated Staff SALARY	:");
 			scanf("%d", &s.salary);
-			fseek(fp, -recsize, SEEK_CUR);
-			fwrite(&s, sizeof(s), 1, fp);
+			//fseek(fp, -(long)sizeof(s), SEEK_CUR);
+			//fwrite(&s, sizeof(s), 1, fp);
+			 fseek(fp,-(long)sizeof(s),1);
+         	 fwrite(&s,(long)sizeof(s),1,fp);
 			printf("\n\n\t\tWoohoo!! Record Updated Successfully !!!!!!!!!!!!\n\t\t");
 		}
 	}
